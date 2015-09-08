@@ -11,15 +11,6 @@ function MasculineNoun(infinitive, animated) {
 MasculineNoun.prototype = Object.create(Noun.prototype);
 
 /**
- * Слово оканчивается на -ок или -ёк
- *
- * @returns {boolean}
- */
-MasculineNoun.prototype.hasLongEnding = function() {
-    return (this.ending === 'к') && this.inArray(this.penultimate, ['о', 'ё']);
-};
-
-/**
  * Слово одушевлённое и оканчивается на "нин" (англичанин, северянин и так далее).
  *
  * @returns {boolean}
@@ -64,15 +55,17 @@ Object.defineProperty(MasculineNoun.prototype, 'nominative', {
             'я': 'и',
             'ь': 'и',
             'о': 'и',
-            'е': this.sibilant ? 'и' : 'ы',
+            'е': this.isSibilant(this.penultimate) ? 'и' : 'ы',
             'щ': 'и',
             'й': 'и'
         };
         inflection['singular'] = this.infinitive;
-        if (endings.hasOwnProperty(this.ending)) {
+        if (this.endsWith('ька')) {
+            inflection['plural'] = this.shortenRoot() + 'и';
+        } else if (endings.hasOwnProperty(this.ending)) {
             inflection['plural'] = this.shortenRoot() + endings[this.ending];
         } else {
-            if (this.hasLongEnding()) {
+            if (this.endsWith('ок', 'ёк')) {
                 root = this.shortenRoot(2, true);
                 inflection['plural'] = root + 'ки';
             } else if (this.isPerson()) {
@@ -110,7 +103,11 @@ Object.defineProperty(MasculineNoun.prototype, 'genitive', {
             inflection['singular'] = root + endings[this.ending][0];
             inflection['plural'] = root + endings[this.ending][1];
         } else {
-            if (this.hasLongEnding()) {
+            if (this.endsWith('ька')) {
+                root = this.shortenRoot(2);
+                inflection['singular'] = root + 'ки';
+                inflection['plural'] = this.shortenRoot(3) + 'ек';
+            } else if (this.endsWith('ок', 'ёк')) {
                 root = this.shortenRoot(2, true);
                 inflection['singular'] = root + 'ка';
                 inflection['plural'] = root + 'ков';

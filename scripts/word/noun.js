@@ -1,12 +1,12 @@
 /**
- * Russian noun prototype
+ * Имя существительное
  */
 
 /**
- * Russian noun
+ * Существительное
  *
- * @param infinitive [String]
- * @param animated [Boolean]
+ * @param {String} infinitive
+ * @param {Boolean} animated
  * @constructor
  */
 function Noun(infinitive, animated) {
@@ -15,14 +15,9 @@ function Noun(infinitive, animated) {
 }
 
 Noun.prototype = Object.create(Word.prototype);
-Object.defineProperty(Noun.prototype, 'ending', {
-    get: function () {
-        return this.infinitive.slice(-1);
-    }
-});
 Object.defineProperty(Noun.prototype, 'penultimate', {
     get: function () {
-        return this.infinitive.slice(-2).substring(0, 1);
+        return this.infinitive.slice(-2, -1);
     }
 });
 Object.defineProperty(Noun.prototype, 'sibilant', {
