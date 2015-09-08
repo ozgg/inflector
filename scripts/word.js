@@ -1,5 +1,5 @@
 /**
- * Russian words
+ * Слово
  */
 
 function Word(infinitive) {

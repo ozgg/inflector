@@ -1,8 +1,8 @@
 /**
- * Russian masculine noun
+ * Существительное мужского рода
  *
- * @param infinitive [String]
- * @param animated [Boolean]
+ * @param {String} infinitive
+ * @param {Boolean} animated
  * @constructor
  */
 function MasculineNoun(infinitive, animated) {
@@ -11,7 +11,49 @@ function MasculineNoun(infinitive, animated) {
 MasculineNoun.prototype = Object.create(Noun.prototype);
 
 /**
- * Word in nominative case
+ * Слово оканчивается на -ок или -ёк
+ *
+ * @returns {boolean}
+ */
+MasculineNoun.prototype.hasLongEnding = function() {
+    return (this.ending === 'к') && this.inArray(this.penultimate, ['о', 'ё']);
+};
+
+/**
+ * Слово одушевлённое и оканчивается на "нин" (англичанин, северянин и так далее).
+ *
+ * @returns {boolean}
+ */
+MasculineNoun.prototype.isPerson = function() {
+    return (this.infinitive.slice(-3) === 'нин' && this.animated)
+};
+
+/**
+ * Укоротить корень
+ *
+ * Обрезает окончание заданной длины и добавляет при необходимости мягкий знак
+ *
+ * @param {Number} [size] насколько укорачивать (по умолчанию — 1)
+ * @param {Boolean} [add] проверять необходимость добавления мягкого знака
+ * @returns {string}
+ */
+MasculineNoun.prototype.shortenRoot = function(size, add) {
+    if (!size) {
+        size = 1;
+    }
+
+    var root = this.infinitive.slice(0, -size);
+    if (add && this.penultimate === 'ё') {
+        root += 'ь';
+    }
+
+    return root;
+};
+
+/**
+ * Варианты в именительном падеже
+ *
+ * @returns {Object}
  */
 Object.defineProperty(MasculineNoun.prototype, 'nominative', {
     get: function() {
@@ -28,16 +70,13 @@ Object.defineProperty(MasculineNoun.prototype, 'nominative', {
         };
         inflection['singular'] = this.infinitive;
         if (endings.hasOwnProperty(this.ending)) {
-            inflection['plural'] = this.infinitive.slice(0, -1) + endings[this.ending];
+            inflection['plural'] = this.shortenRoot() + endings[this.ending];
         } else {
-            if ((this.ending === 'к') && this.inArray(this.penultimate, ['о', 'ё'])) {
-                root = this.infinitive.slice(0, -2);
-                if (this.penultimate === 'ё') {
-                    root += 'ь';
-                }
+            if (this.hasLongEnding()) {
+                root = this.shortenRoot(2, true);
                 inflection['plural'] = root + 'ки';
-            } else if (this.ending === 'н' && this.penultimate === 'и' && this.animated) {
-                root = donor.slice(0, -2);
+            } else if (this.isPerson()) {
+                root = this.shortenRoot(2);
                 inflection['plural'] = root + 'е';
             } else {
                 inflection['plural'] = this.infinitive + (this.soften ? 'и' : 'ы');
@@ -49,7 +88,9 @@ Object.defineProperty(MasculineNoun.prototype, 'nominative', {
 });
 
 /**
- * Word in genitive case
+ * Варианты в родительном падеже
+ *
+ * @returns {Object}
  */
 Object.defineProperty(MasculineNoun.prototype, 'genitive', {
     get: function () {
@@ -65,20 +106,17 @@ Object.defineProperty(MasculineNoun.prototype, 'genitive', {
             'й': ['я', 'ев']
         };
         if (endings.hasOwnProperty(this.ending)) {
-            root = this.infinitive.slice(0, -1);
+            root = this.shortenRoot();
             inflection['singular'] = root + endings[this.ending][0];
             inflection['plural'] = root + endings[this.ending][1];
         } else {
-            if ((this.ending === 'к') && this.inArray(this.penultimate, ['о', 'ё'])) {
-                root = this.infinitive.slice(0, -2);
-                if (this.penultimate === 'ё') {
-                    root += 'ь';
-                }
+            if (this.hasLongEnding()) {
+                root = this.shortenRoot(2, true);
                 inflection['singular'] = root + 'ка';
                 inflection['plural'] = root + 'ков';
-            } else if (this.ending === 'н' && this.penultimate === 'и' && this.animated) {
-                root = donor.slice(0, -2);
-                inflection['singular'] = root + 'на';
+            } else if (this.isPerson()) {
+                root = this.shortenRoot(2);
+                inflection['singular'] = root + 'а';
                 inflection['plural'] = root;
             } else {
                 inflection['singular'] = this.infinitive + 'а';
