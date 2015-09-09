@@ -16,7 +16,7 @@ function Adjective(infinitive, qualitative) {
 Adjective.prototype = Object.create(Word.prototype);
 
 Adjective.prototype.inflect = function () {
-    var endings, l;
+    var endings;
     var base = this.shorten(2);
     var cases = this.grammatical_cases.concat(['short']);
     var comparative = base + 'ее';
@@ -47,15 +47,23 @@ Adjective.prototype.inflect = function () {
             neuter: ['ее', 'его', 'ему', 'его', 'им', 'ем', 'е'],
             plural: ['ие', 'их', 'им', 'их', 'ими', 'их', 'и']
         };
-    } else if (this.endsWith('кий', 'гий')) {
-        l = this.infinitive.slice(-3, -2);
+    } else if (this.endsWith('кий')) {
         base = this.shorten(3);
-        comparative = base + l + 'ее';
+        comparative = base + 'че';
         endings = {
-            masculine: [l + 'ий', l + 'ого', l + 'ому', l + 'ого', l + 'им', l + 'ом', 'о' + l],
-            feminine: [l + 'ая', l + 'ой', l + 'ой', l + 'ую', l + 'ой', l + 'ой', 'о' + l + 'а'],
-            neuter: [l + 'ое', l + 'ого', l + 'ому', l + 'ого', l + 'им', l + 'ом', 'о' + l + 'о'],
-            plural: [l + 'ие', l + 'их', l + 'им', l + 'их', l + 'ими', l + 'их', 'о' + l + 'и']
+            masculine: ['кий', 'кого', 'кому', 'кого', 'ким', 'ком', 'ок'],
+            feminine: ['кая', 'кой', 'кой', 'кую', 'кой', 'кой', 'ка'],
+            neuter: ['кое', 'кого', 'кому', 'кого', 'ким', 'ком', 'ко'],
+            plural: ['кие', 'ких', 'ким', 'ких', 'кими', 'ких', 'ки']
+        };
+    } else if (this.endsWith('гий')) {
+        base = this.shorten(3);
+        comparative = base + 'же';
+        endings = {
+            masculine: ['гий', 'гого', 'гому', 'гого', 'гим', 'гом', 'г'],
+            feminine: ['гая', 'гой', 'гой', 'гую', 'гой', 'гой', 'га'],
+            neuter: ['гое', 'гого', 'гому', 'гого', 'гим', 'гом', 'го'],
+            plural: ['гие', 'гих', 'гим', 'гих', 'гими', 'гих', 'ги']
         };
     } else if (this.endsWith('ный')) {
         base = this.shorten(3);

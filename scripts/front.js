@@ -1,5 +1,5 @@
-// Вывод склонений существительных
 $(document).ready(function () {
+    // Вывод склонений существительных
     $('#noun_check').on('click', function () {
         var noun;
         var infinitive = $('#noun_infinitive').val();
@@ -30,6 +30,7 @@ $(document).ready(function () {
         }
     });
 
+    // Вывод склонений прилагательных
     $('#adjective_check').on('click', function() {
         var infinitive = $('#adjective_infinitive').val();
         var qualitative = $('#adjective_qualitative').is(':checked');
