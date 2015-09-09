@@ -45,6 +45,7 @@ $(document).ready(function () {
                     }
                 }
             }
+            $('#adjective_comparative').html(inflection['comparative']);
         }
     });
 });
