@@ -15,12 +15,35 @@ function Noun(infinitive, animated) {
 }
 Noun.prototype = Object.create(Word.prototype);
 
-function FeminineNoun(infinitive, animated) {
-    Noun.call(this, infinitive, animated);
-}
-FeminineNoun.prototype = Object.create(Noun.prototype);
+/**
+ * Подготовить варианты склонений.
+ * Переопределяется в дочерних классах. Метод должен выставлять this.base и this.endings
+ */
+Noun.prototype.prepareInflection = function () {
+    // Overload in child classes
+};
 
-function NeuterNoun(infinitive, animated) {
-    Noun.call(this, infinitive, animated);
-}
-NeuterNoun.prototype = Object.create(Noun.prototype);
+/**
+ * Просклонять
+ *
+ * @returns {Object}
+ */
+Noun.prototype.inflect = function () {
+    var inflection = {singular: Object.create(null), plural: Object.create(null)};
+
+    this.base = this.infinitive;
+    this.endings = {
+        singular: ['', '', '', '', '', ''],
+        plural: ['', '', '', '', '', '']
+    };
+
+    this.prepareInflection();
+
+    ['singular', 'plural'].forEach(function (number) {
+        this.endings[number].forEach(function (ending, index) {
+            inflection[number][this.grammatical_cases[index]] = this.base + ending;
+        }, this);
+    }, this);
+
+    return inflection;
+};
