@@ -3,13 +3,76 @@
 <head>
     <meta charset="UTF-8" />
     <title>Проверка склонения</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="scripts/front.js"></script>
     <script type="text/javascript" src="scripts/word.js"></script>
     <script type="text/javascript" src="scripts/word/noun.js"></script>
-    <script type="text/javascript" src="scripts/word/noun/masculine_noun.js"></script>
-    <script type="text/javascript" src="scripts/word/noun/feminine_noun.js"></script>
-    <script type="text/javascript" src="scripts/word/noun/neuter_noun.js"></script>
 </head>
 <body>
-<p>Проверять нужно через консоль, девелопернейм.</p>
+<form>
+    <fieldset>
+        <legend>Существительные</legend>
+        <div>
+            <label for="noun_infinitive">Инфинитив</label>
+            <input type="text" id="noun_infinitive"/>
+        </div>
+        <div>
+            <input type="radio" name="noun[gender]" id="noun_gender_masculine" value="masculine" checked />
+            <label for="noun_gender_masculine">Мужской род</label><br/>
+            <input type="radio" name="noun[gender]" id="noun_gender_feminine" value="feminine" />
+            <label for="noun_gender_feminine">Женский род</label><br/>
+            <input type="radio" name="noun[gender]" id="noun_gender_neuter" value="neuter" />
+            <label for="noun_gender_neuter">Средний род</label><br/>
+        </div>
+        <div>
+            <input type="checkbox" id="noun_anumated" />
+            <label for="noun_anumated">Одушевлённое</label>
+        </div>
+        <button type="button">Просклонять</button>
+
+        <table>
+            <caption>Результат</caption>
+            <thead>
+            <tr>
+                <th>Падеж</th>
+                <th>Единственное число</th>
+                <th>Множественное число</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Именительный</th>
+                <td id="noun_nominative_singular"></td>
+                <td id="noun_nominative_plural"></td>
+            </tr>
+            <tr>
+                <th>Родительный</th>
+                <td id="noun_genitive_singular"></td>
+                <td id="noun_genitive_plural"></td>
+            </tr>
+            <tr>
+                <th>Дательный</th>
+                <td id="noun_dative_singular"></td>
+                <td id="noun_dative_plural"></td>
+            </tr>
+            <tr>
+                <th>Винительный</th>
+                <td id="noun_accusative_singular"></td>
+                <td id="noun_accusative_plural"></td>
+            </tr>
+            <tr>
+                <th>Творительный</th>
+                <td id="noun_instrumental_singular"></td>
+                <td id="noun_instrumental_plural"></td>
+            </tr>
+            <tr>
+                <th>Предложный</th>
+                <td id="noun_prepositional_singular"></td>
+                <td id="noun_prepositional_plural"></td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</form>
 </body>
 </html>
