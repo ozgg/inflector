@@ -170,6 +170,18 @@ FeminineNoun.prototype.prepareInflection = function() {
             singular: ['а', 'ы', 'е', 'у', 'ей', 'е'],
             plural: ['ы', '', 'ам', this.animated ? '' : 'ы', 'ами', 'ах']
         }
+    } else if (this.endsWith('ка')) {
+        this.base = this.shorten(2);
+        this.endings = {
+            singular: ['ка', 'ки', 'ке', 'ку', 'кой', 'ке'],
+            plural: ['ки', 'ок', 'кам', this.animated ? 'ок' : 'ки', 'ками', 'ках']
+        }
+    } else if (this.endsWith('га')) {
+        this.base = this.shorten(2);
+        this.endings = {
+            singular: ['га', 'ги', 'ге', 'гу', 'гой', 'ге'],
+            plural: ['ги', 'ог', 'гам', this.animated ? 'ог' : 'ги', 'гами', 'гах']
+        }
     } else if (this.endsWith('ья')) {
         this.base = this.shorten(2);
         this.endings = {

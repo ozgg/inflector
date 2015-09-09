@@ -17,18 +17,18 @@
             <input type="text" id="noun_infinitive"/>
         </div>
         <div>
-            <input type="radio" name="noun[gender]" id="noun_gender_masculine" value="masculine" checked />
+            <input type="radio" name="noun_gender" id="noun_gender_masculine" value="masculine" checked />
             <label for="noun_gender_masculine">Мужской род</label><br/>
-            <input type="radio" name="noun[gender]" id="noun_gender_feminine" value="feminine" />
+            <input type="radio" name="noun_gender" id="noun_gender_feminine" value="feminine" />
             <label for="noun_gender_feminine">Женский род</label><br/>
-            <input type="radio" name="noun[gender]" id="noun_gender_neuter" value="neuter" />
+            <input type="radio" name="noun_gender" id="noun_gender_neuter" value="neuter" />
             <label for="noun_gender_neuter">Средний род</label><br/>
         </div>
         <div>
-            <input type="checkbox" id="noun_anumated" />
-            <label for="noun_anumated">Одушевлённое</label>
+            <input type="checkbox" id="noun_animated" />
+            <label for="noun_animated">Одушевлённое</label>
         </div>
-        <button type="button">Просклонять</button>
+        <button type="button" id="noun_check">Просклонять</button>
 
         <table>
             <caption>Результат</caption>
