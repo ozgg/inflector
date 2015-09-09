@@ -11,118 +11,105 @@ function MasculineNoun(infinitive, animated) {
 MasculineNoun.prototype = Object.create(Noun.prototype);
 
 /**
- * Слово одушевлённое и оканчивается на "нин" (англичанин, северянин и так далее).
- *
- * @returns {boolean}
- */
-MasculineNoun.prototype.isPerson = function() {
-    return (this.infinitive.slice(-3) === 'нин' && this.animated)
-};
-
-/**
- * Укоротить корень
- *
- * Обрезает окончание заданной длины и добавляет при необходимости мягкий знак
- *
- * @param {Number} [size] насколько укорачивать (по умолчанию — 1)
- * @param {Boolean} [add] проверять необходимость добавления мягкого знака
- * @returns {string}
- */
-MasculineNoun.prototype.shortenRoot = function(size, add) {
-    if (!size) {
-        size = 1;
-    }
-
-    var root = this.infinitive.slice(0, -size);
-    if (add && this.penultimate === 'ё') {
-        root += 'ь';
-    }
-
-    return root;
-};
-
-/**
- * Варианты в именительном падеже
+ * Просклонять слово
  *
  * @returns {Object}
  */
-Object.defineProperty(MasculineNoun.prototype, 'nominative', {
-    get: function() {
-        var root;
-        var inflection = Object.create(null);
-        var endings = {
-            'а': this.soften ? 'и' : 'ы',
-            'я': 'и',
-            'ь': 'и',
-            'о': 'и',
-            'е': this.isSibilant(this.penultimate) ? 'и' : 'ы',
-            'щ': 'и',
-            'й': 'и'
+MasculineNoun.prototype.inflect = function () {
+    var base, endings;
+    var inflection = {singular: Object.create(null), plural: Object.create(null)};
+    if (this.endsWith('ька')) {
+        base = this.shorten(3);
+        endings = {
+            singular: ['ька', 'ьки', 'ьке', this.animated ? 'ьку' : 'ька', 'ькой', 'ьке'],
+            plural: ['ьки', 'ек', 'ькам', this.animated ? 'ек' : 'ьки', 'ьками', 'ьках']
         };
-        inflection['singular'] = this.infinitive;
-        if (this.endsWith('ька')) {
-            inflection['plural'] = this.shortenRoot() + 'и';
-        } else if (endings.hasOwnProperty(this.ending)) {
-            inflection['plural'] = this.shortenRoot() + endings[this.ending];
-        } else {
-            if (this.endsWith('ок', 'ёк')) {
-                root = this.shortenRoot(2, true);
-                inflection['plural'] = root + 'ки';
-            } else if (this.isPerson()) {
-                root = this.shortenRoot(2);
-                inflection['plural'] = root + 'е';
-            } else {
-                inflection['plural'] = this.infinitive + (this.soften ? 'и' : 'ы');
-            }
-        }
-
-        return inflection;
-    }
-});
-
-/**
- * Варианты в родительном падеже
- *
- * @returns {Object}
- */
-Object.defineProperty(MasculineNoun.prototype, 'genitive', {
-    get: function () {
-        var root;
-        var inflection = Object.create(null);
-        var endings = {
-            'а': [this.soften ? 'и' : 'ы', ''],
-            'я': ['и', 'ь'],
-            'ь': ['я', 'ей'],
-            'о': ['и', 'ек'],
-            'е': [this.soften ? 'я' : 'а', ''],
-            'щ': ['а', 'ей'],
-            'й': ['я', 'ев']
+    } else if (this.endsWith('нин') && this.animated) {
+        base = this.shorten(2);
+        endings = {
+            singular: ['ин', 'ина', 'ину', 'ина', 'ином', 'ине'],
+            plural: ['е', '', 'ам', '', 'ами', 'ах']
         };
-        if (endings.hasOwnProperty(this.ending)) {
-            root = this.shortenRoot();
-            inflection['singular'] = root + endings[this.ending][0];
-            inflection['plural'] = root + endings[this.ending][1];
-        } else {
-            if (this.endsWith('ька')) {
-                root = this.shortenRoot(2);
-                inflection['singular'] = root + 'ки';
-                inflection['plural'] = this.shortenRoot(3) + 'ек';
-            } else if (this.endsWith('ок', 'ёк')) {
-                root = this.shortenRoot(2, true);
-                inflection['singular'] = root + 'ка';
-                inflection['plural'] = root + 'ков';
-            } else if (this.isPerson()) {
-                root = this.shortenRoot(2);
-                inflection['singular'] = root + 'а';
-                inflection['plural'] = root;
-            } else {
-                inflection['singular'] = this.infinitive + 'а';
-                inflection['plural'] = this.infinitive + 'ов';
-            }
-        }
-
-        return inflection;
+    } else if (this.endsWith('мёк')) {
+        base = this.shorten(2);
+        endings = {
+            singular: ['ёк', 'ёка', 'ёку', this.animated ? 'ёка' : 'ёк', 'ёком', 'ёке'],
+            plural: ['ёки', 'ёков', 'ёкам', this.animated ? 'ёков' : 'ёки', 'ёками', 'ёках']
+        };
+    } else if (this.endsWith('ок')) {
+        base = this.shorten(2);
+        endings = {
+            singular: ['ок', 'ка', 'ку', this.animated ? 'ка' : 'ок', 'ком', 'ке'],
+            plural: ['ки', 'ков', 'кам', this.animated ? 'ков' : 'ки', 'ками', 'ках']
+        };
+    } else if (this.endsWith('ёк')) {
+        base = this.shorten(2);
+        endings = {
+            singular: ['ёк', 'ька', 'ьку', this.animated ? 'ька' : 'ёк', 'ьком', 'ьке'],
+            plural: ['ьки', 'ьков', 'ькам', this.animated ? 'ьков' : 'ьки', 'ьками', 'ьках']
+        };
+    } else if (this.endsWith('ще')) {
+        base = this.shorten(2);
+        endings = {
+            singular: ['ще', 'ща', 'щу', 'ще', 'щем', 'ще'],
+            plural: ['щи', 'щей', 'щам', this.animated ? 'щей' : 'щи', 'щами', 'щах']
+        };
+    } else if (this.endsWith('ья')) {
+        base = this.shorten(2);
+        endings = {
+            singular: ['ья', 'ьи', 'ье', this.animated ? 'ью' : 'ья', 'ьёй', 'ье'],
+            plural: ['ьи', 'ей', 'ьям', this.animated ? 'ей' : 'ьи', 'ьями', 'ьях']
+        };
+    } else if (this.endsWith('ко')) {
+        base = this.shorten(2);
+        endings = {
+            singular: ['ко', 'ки', 'ке', this.animated ? 'ку' : 'ко', 'кой', 'ке'],
+            plural: ['ки', 'ек', 'кам', this.animated ? 'ек' : 'ки', 'ками', 'ках']
+        };
+    } else if (this.endsWith('а')) {
+        base = this.shorten();
+        endings = {
+            singular: ['а', 'ы', 'е', this.animated ? 'у' : 'а', 'ой', 'е'],
+            plural: ['ы', '', 'ам', this.animated ? '' : 'ы', 'ами', 'ах']
+        };
+    } else if (this.endsWith('я')) {
+        base = this.shorten();
+        endings = {
+            singular: ['я', 'и', 'е', this.animated ? 'ю' : 'я', 'ей', 'е'],
+            plural: ['и', 'ей', 'ям', this.animated ? 'ей' : 'и', 'ями', 'ях']
+        };
+    } else if (this.endsWith('ь')) {
+        base = this.shorten();
+        endings = {
+            singular: ['ь', 'я', 'ю', this.animated ? 'я' : 'ь', 'ём', 'е'],
+            plural: ['и', 'ях', 'ям', this.animated ? 'ей' : 'и', 'ями', 'ях']
+        };
+    } else if (this.endsWith('й')) {
+        base = this.shorten();
+        endings = {
+            singular: ['й', 'я', 'ю', this.animated ? 'я' : 'й', 'ем', 'е'],
+            plural: ['и', 'ев', 'ям', this.animated ? 'ев' : 'и', 'ями', 'ях']
+        };
+    } else if (this.endsWith('ж', 'ш', 'щ')) {
+        base = this.infinitive;
+        endings = {
+            singular: ['', 'а', 'у', this.animated ? 'а' : '', 'ем', 'е'],
+            plural: ['и', 'ей', 'ам', this.animated ? 'ей' : 'и', 'ами', 'ах']
+        };
+    } else {
+        var soften = this.endsWith('г', 'к');
+        base = this.infinitive;
+        endings = {
+            singular: ['', 'а', 'у', this.animated ? 'а' : '', 'ом', 'е'],
+            plural: [soften ? 'и' : 'ы', 'ов', 'ам', this.animated ? 'ов' : (soften ? 'и' : 'ы'), 'ами', 'ах']
+        };
     }
-});
 
+    ['singular', 'plural'].forEach(function(number) {
+        endings[number].forEach(function (ending, index) {
+            inflection[number][this.grammatical_cases[index]] = base + ending;
+        }, this);
+    }, this);
 
+    return inflection;
+};

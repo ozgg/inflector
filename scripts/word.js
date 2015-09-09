@@ -13,6 +13,17 @@ function Word(infinitive) {
 }
 
 /**
+ * Названия падежей для сопоставлением с массивом окончаний
+ *
+ * @returns {Array}
+ */
+Object.defineProperty(Word.prototype, 'grammatical_cases', {
+    get: function() {
+        return ['nominative', 'genitive', 'dative', 'accusative', 'instrumental', 'prepositional']
+    }
+});
+
+/**
  * Есть ли строка в массиве?
  *
  * @param {string} needle
@@ -32,7 +43,7 @@ Word.prototype.inArray = function (needle, haystack) {
 /**
  * Получить окончание слова заданной длины (по умолчанию — 1)
  *
- * @param {Number} size
+ * @param {Number} [size]
  * @returns {string}
  */
 Word.prototype.ending = function(size) {
@@ -51,6 +62,16 @@ Word.prototype.ending = function(size) {
  */
 Word.prototype.isSibilant = function(letter) {
     return this.inArray(letter, ['ж', 'ш', 'щ', 'ч', 'ц']);
+};
+
+/**
+ * Укоротить слово
+ *
+ * @param {Number} [size]
+ * @returns {string}
+ */
+Word.prototype.shorten = function(size) {
+    return this.infinitive.slice(0, -(size || 1));
 };
 
 /**
