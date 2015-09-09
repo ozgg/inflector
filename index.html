@@ -28,7 +28,7 @@
             <input type="checkbox" id="noun_animated" />
             <label for="noun_animated">Одушевлённое</label>
         </div>
-        <button type="button" id="noun_check">Просклонять</button>
+        <div><button type="button" id="noun_check">Просклонять</button></div>
 
         <table>
             <caption>Результат</caption>
@@ -69,6 +69,83 @@
                 <th>Предложный</th>
                 <td id="noun_prepositional_singular"></td>
                 <td id="noun_prepositional_plural"></td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>Прилагательные</legend>
+        <div>
+            <label for="adjective_infinitive">Инфинитив</label>
+            <input type="text" id="adjective_infinitive" />
+        </div>
+        <div>
+            <input type="checkbox" id="adjective_qualitative" />
+            <label for="adjective_qualitative">Качественное</label>
+        </div>
+        <div><button type="button" id="adjective_check">Просклонять</button></div>
+
+        <table>
+            <caption>Результат</caption>
+            <thead>
+            <tr>
+                <th>Падеж</th>
+                <th>Мужской род</th>
+                <th>Женский род</th>
+                <th>Средний род</th>
+                <th>Множественное число</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Именительный</th>
+                <td id="adjective_nominative_masculine"></td>
+                <td id="adjective_nominative_feminine"></td>
+                <td id="adjective_nominative_neuter"></td>
+                <td id="adjective_nominative_plural"></td>
+            </tr>
+            <tr>
+                <th>Родительный</th>
+                <td id="adjective_genitive_masculine"></td>
+                <td id="adjective_genitive_feminine"></td>
+                <td id="adjective_genitive_neuter"></td>
+                <td id="adjective_genitive_plural"></td>
+            </tr>
+            <tr>
+                <th>Дательный</th>
+                <td id="adjective_dative_masculine"></td>
+                <td id="adjective_dative_feminine"></td>
+                <td id="adjective_dative_neuter"></td>
+                <td id="adjective_dative_plural"></td>
+            </tr>
+            <tr>
+                <th>Винительный</th>
+                <td id="adjective_accusative_masculine"></td>
+                <td id="adjective_accusative_feminine"></td>
+                <td id="adjective_accusative_neuter"></td>
+                <td id="adjective_accusative_plural"></td>
+            </tr>
+            <tr>
+                <th>Творительный</th>
+                <td id="adjective_instrumental_masculine"></td>
+                <td id="adjective_instrumental_feminine"></td>
+                <td id="adjective_instrumental_neuter"></td>
+                <td id="adjective_instrumental_plural"></td>
+            </tr>
+            <tr>
+                <th>Предложный</th>
+                <td id="adjective_prepositional_masculine"></td>
+                <td id="adjective_prepositional_feminine"></td>
+                <td id="adjective_prepositional_neuter"></td>
+                <td id="adjective_prepositional_plural"></td>
+            </tr>
+            <tr>
+                <th>[Краткая форма]</th>
+                <td id="adjective_short_masculine"></td>
+                <td id="adjective_short_feminine"></td>
+                <td id="adjective_short_neuter"></td>
+                <td id="adjective_short_plural"></td>
             </tr>
             </tbody>
         </table>
