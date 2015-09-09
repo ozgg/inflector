@@ -29,4 +29,22 @@ $(document).ready(function () {
             }
         }
     });
+
+    $('#adjective_check').on('click', function() {
+        var infinitive = $('#adjective_infinitive').val();
+        var qualitative = $('#adjective_qualitative').is(':checked');
+        var adjective = new Adjective(infinitive, qualitative);
+        if (adjective) {
+            var inflection = adjective.inflect();
+            var gender, grammatical_case;
+            for (gender in inflection) {
+                if (inflection.hasOwnProperty(gender)) {
+                    for (grammatical_case in inflection[gender]) {
+                        //noinspection JSUnfilteredForInLoop
+                        $('#adjective_' + grammatical_case + '_' + gender).html(inflection[gender][grammatical_case]);
+                    }
+                }
+            }
+        }
+    });
 });
