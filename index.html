@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Проверка склонения</title>
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="scripts/front.js"></script>
     <script type="text/javascript" src="scripts/word.js"></script>
     <script type="text/javascript" src="scripts/word/noun.js"></script>
     <script type="text/javascript" src="scripts/word/adjective.js"></script>
+    <script type="text/javascript" src="scripts/word/verb.js"></script>
 </head>
 <body>
 <form>
@@ -18,18 +19,20 @@
             <input type="text" id="noun_infinitive"/>
         </div>
         <div>
-            <input type="radio" name="noun_gender" id="noun_gender_masculine" value="masculine" checked />
+            <input type="radio" name="noun_gender" id="noun_gender_masculine" value="masculine" checked/>
             <label for="noun_gender_masculine">Мужской род</label><br/>
-            <input type="radio" name="noun_gender" id="noun_gender_feminine" value="feminine" />
+            <input type="radio" name="noun_gender" id="noun_gender_feminine" value="feminine"/>
             <label for="noun_gender_feminine">Женский род</label><br/>
-            <input type="radio" name="noun_gender" id="noun_gender_neuter" value="neuter" />
+            <input type="radio" name="noun_gender" id="noun_gender_neuter" value="neuter"/>
             <label for="noun_gender_neuter">Средний род</label><br/>
         </div>
         <div>
-            <input type="checkbox" id="noun_animated" />
+            <input type="checkbox" id="noun_animated"/>
             <label for="noun_animated">Одушевлённое</label>
         </div>
-        <div><button type="button" id="noun_check">Просклонять</button></div>
+        <div>
+            <button type="button" id="noun_check">Просклонять</button>
+        </div>
 
         <table>
             <caption>Результат</caption>
@@ -79,13 +82,15 @@
         <legend>Прилагательные</legend>
         <div>
             <label for="adjective_infinitive">Инфинитив</label>
-            <input type="text" id="adjective_infinitive" />
+            <input type="text" id="adjective_infinitive"/>
         </div>
         <div>
-            <input type="checkbox" id="adjective_qualitative" />
+            <input type="checkbox" id="adjective_qualitative"/>
             <label for="adjective_qualitative">Качественное</label>
         </div>
-        <div><button type="button" id="adjective_check">Просклонять</button></div>
+        <div>
+            <button type="button" id="adjective_check">Просклонять</button>
+        </div>
 
         <table>
             <caption>Результат</caption>
@@ -151,6 +156,85 @@
             <tr>
                 <th>[Сравнительная степень]</th>
                 <td id="adjective_comparative" colspan="3"></td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>Глаголы</legend>
+
+        <div>
+            <label for="verb_infinitive">Инфинитив</label>
+            <input type="text" id="verb_infinitive"/>
+        </div>
+
+        <div>
+            <button type="button" id="verb_check">Просклонять</button>
+        </div>
+
+        <table>
+            <caption>Результат</caption>
+
+            <tbody>
+            <tr>
+                <th colspan="3">Основные формы</th>
+            </tr>
+            <tr>
+                <th>Императив</th>
+                <td id="verb_imperative" colspan="2"></td>
+            </tr>
+            <tr>
+                <th>Деепричастие</th>
+                <td id="verb_gerund" colspan="2"></td>
+            </tr>
+            <tr>
+                <th>Деепричастие (п. в.)</th>
+                <td id="verb_gerund_past" colspan="2"></td>
+            </tr>
+
+            <tr>
+                <th colspan="3">Формы настоящего времени</th>
+            </tr>
+            <tr>
+                <th>Лицо</th>
+                <th>Единственное число</th>
+                <th>множественное число</th>
+            </tr>
+            <tr>
+                <th>Первое</th>
+                <td id="verb_first_singular"></td>
+                <td id="verb_first_plural"></td>
+            </tr>
+            <tr>
+                <th>Второе</th>
+                <td id="verb_sedond_singular"></td>
+                <td id="verb_second_plural"></td>
+            </tr>
+            <tr>
+                <th>Третье</th>
+                <td id="verb_third_singular"></td>
+                <td id="verb_third_plural"></td>
+            </tr>
+
+            <tr>
+                <th colspan="3">формы прошедшего времени</th>
+            </tr>
+            <tr>
+                <th>Мужской род</th>
+                <th colspan="2" id="verb_past_masculine"></th>
+            </tr>
+            <tr>
+                <th>Женский род</th>
+                <th colspan="2" id="verb_past_feminine"></th>
+            </tr>
+            <tr>
+                <th>Средний род</th>
+                <th colspan="2" id="verb_past_neuter"></th>
+            </tr>
+            <tr>
+                <th>Множественное число</th>
+                <th colspan="2" id="verb_past_plural"></th>
             </tr>
             </tbody>
         </table>
