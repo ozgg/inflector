@@ -14,7 +14,7 @@ Verb.prototype = Object.create(Word.prototype);
  *
  * @returns {Object}
  */
-Verb.inflect = function () {
+Verb.prototype.inflect = function () {
     var soften;
     var passive = this.endsWith('ся', 'сь');
     var suffix = passive ? ['ся', 'сь', 'шись'] : ['', '', ''];
@@ -24,7 +24,7 @@ Verb.inflect = function () {
     var types = [
         'imperative', 'gerund', 'gerund_past',
         'first_singular', 'first_plural',
-        'second_singular', 'single_plural',
+        'second_singular', 'second_plural',
         'third_singular', 'third_plural',
         'past_masculine', 'past_feminine', 'past_neuter', 'past_plural'
     ];
@@ -32,7 +32,7 @@ Verb.inflect = function () {
     if (this.endsWith('овать', 'оваться')) {
         base = this.shorten(passive ? 7 : 5);
         endings = [
-            'уй' + suffix[0], 'уя' + suffix[1], 'овав' + suffix[3],
+            'уй' + suffix[0], 'уя' + suffix[1], 'овав' + suffix[2],
             'ую' + suffix[1], 'уем' + suffix[0],
             'уешь' + suffix[0], 'уете' + suffix[1],
             'ует' + suffix[0], 'уют' + suffix[0],
@@ -42,7 +42,7 @@ Verb.inflect = function () {
         base = this.shorten(passive ? 5 : 3);
         soften = !this.inArray(base.slice(-1), ['ж', 'ш', 'ч', 'щ']);
         endings = [
-            'и' + suffix[1], (soften ? 'я' : 'а') + suffix[1], 'ив' + suffix[3],
+            'и' + suffix[1], (soften ? 'я' : 'а') + suffix[1], 'ив' + suffix[2],
             (soften ? 'ю' : 'у') + suffix[1], 'им' + suffix[0],
             'ишь' + suffix[0], 'ите' + suffix[1],
             'ит' + suffix[0], (soften ? 'ят' : 'ат') + suffix[0],
@@ -51,7 +51,7 @@ Verb.inflect = function () {
     } else if (this.endsWith('ть', 'ться')) {
         base = this.shorten(passive ? 4 : 2);
         endings = [
-            'й' + suffix[0], 'я' + suffix[1], 'в' + suffix[3],
+            'й' + suffix[0], 'я' + suffix[1], 'в' + suffix[2],
             'ю' + suffix[1], 'ем' + suffix[0],
             'ешь' + suffix[0], 'ете' + suffix[1],
             'ет' + suffix[0], 'ют' + suffix[0],
@@ -60,7 +60,7 @@ Verb.inflect = function () {
     } else if (this.endsWith('чь', 'чься')) {
         base = this.shorten(passive ? 4 : 2);
         endings = [
-            'ки' + suffix[1], 'ча' + suffix[1], 'ча' + suffix[3],
+            'ки' + suffix[1], 'ча' + suffix[1], 'ча' + suffix[2],
             'ку' + suffix[0], 'чём' + suffix[0],
             'чёшь' + suffix[0], 'чёте' + suffix[1],
             'чёт' + suffix[0], 'кут' + suffix[0],

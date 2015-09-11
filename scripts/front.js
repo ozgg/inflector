@@ -31,7 +31,7 @@ $(document).ready(function () {
     });
 
     // Вывод склонений прилагательных
-    $('#adjective_check').on('click', function() {
+    $('#adjective_check').on('click', function () {
         var infinitive = $('#adjective_infinitive').val();
         var qualitative = $('#adjective_qualitative').is(':checked');
         var adjective = new Adjective(infinitive, qualitative);
@@ -47,6 +47,20 @@ $(document).ready(function () {
                 }
             }
             $('#adjective_comparative').html(inflection['comparative']);
+        }
+    });
+
+    // Проверка флексии глаголов несовершенного вида
+    $('#verb_check').on('click', function () {
+        var infinitive = $('#verb_infinitive').val();
+        var verb = new Verb(infinitive);
+        if (verb) {
+            var inflection = verb.inflect();
+            for (var type in inflection) {
+                if (inflection.hasOwnProperty(type)) {
+                    $('#verb_' + type).html(inflection[type]);
+                }
+            }
         }
     });
 });
