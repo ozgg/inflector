@@ -15,6 +15,9 @@ $(document).ready(function () {
             case 'neuter':
                 noun = new NeuterNoun(infinitive, animated);
                 break;
+            case 'plural':
+                noun = new PluralNoun(infinitive, animated);
+                break;
         }
         if (noun) {
             var inflection = noun.inflect();

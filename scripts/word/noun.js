@@ -259,3 +259,39 @@ NeuterNoun.prototype.prepareInflection = function() {
         }
     }
 };
+
+/**
+ * Существительное с только множественным числом
+ *
+ * @param {String} infinitive
+ * @param {Boolean} animated
+ * @constructor
+ */
+function PluralNoun(infinitive, animated) {
+    Noun.call(this, infinitive, animated);
+}
+PluralNoun.prototype = Object.create(Noun.prototype);
+
+PluralNoun.prototype.prepareInflection = function() {
+    var endings;
+    this.base = this.shorten();
+
+    if (this.endsWith('и')) {
+        endings = ['и', 'ей', 'ам', this.animated ? 'ей' : 'и', 'ами', 'ах'];
+    } else if (this.endsWith('ы')) {
+        endings = ['ы', '', 'ам', this.animated ? '' : 'ы', 'ами', 'ах'];
+    }
+
+    this.endings = {
+        singular: ['', '', '', '', '', ''],
+        plural: endings
+    };
+};
+
+PluralNoun.prototype.inflect = function() {
+    var inflection = Noun.prototype.inflect.call(this);
+
+    inflection['singular'] = ['', '', '', '', '', ''];
+
+    return inflection;
+};
