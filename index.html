@@ -162,7 +162,7 @@
     </fieldset>
 
     <fieldset>
-        <legend>Глаголы</legend>
+        <legend>Глаголы несовершенного вида</legend>
 
         <div>
             <label for="verb_infinitive">Инфинитив</label>
@@ -238,6 +238,81 @@
             </tr>
             </tbody>
         </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>Глаголы совершенного вида</legend>
+        <div>
+            <label for="perfect_verb_infinitive">Инфинитив</label>
+            <input type="text" id="perfect_verb_infinitive"/>
+        </div>
+
+        <div>
+            <button type="button" id="perfect_verb_check">Просклонять</button>
+        </div>
+
+        <table>
+            <caption>Результат</caption>
+
+            <tbody>
+            <tr>
+                <th colspan="3">Основные формы</th>
+            </tr>
+            <tr>
+                <th>Императив</th>
+                <td id="perfect_verb_imperative" colspan="2"></td>
+            </tr>
+            <tr>
+                <th>Деепричастие</th>
+                <td id="perfect_verb_gerund" colspan="2"></td>
+            </tr>
+
+            <tr>
+                <th colspan="3">формы прошедшего времени</th>
+            </tr>
+            <tr>
+                <th>Мужской род</th>
+                <td colspan="2" id="perfect_verb_past_masculine"></td>
+            </tr>
+            <tr>
+                <th>Женский род</th>
+                <td colspan="2" id="perfect_verb_past_feminine"></td>
+            </tr>
+            <tr>
+                <th>Средний род</th>
+                <td colspan="2" id="perfect_verb_past_neuter"></td>
+            </tr>
+            <tr>
+                <th>Множественное число</th>
+                <td colspan="2" id="perfect_verb_past_plural"></td>
+            </tr>
+
+            <tr>
+                <th colspan="3">Формы будущего времени</th>
+            </tr>
+            <tr>
+                <th>Лицо</th>
+                <th>Единственное число</th>
+                <th>множественное число</th>
+            </tr>
+            <tr>
+                <th>Первое</th>
+                <td id="perfect_verb_first_singular"></td>
+                <td id="perfect_verb_first_plural"></td>
+            </tr>
+            <tr>
+                <th>Второе</th>
+                <td id="perfect_verb_second_singular"></td>
+                <td id="perfect_verb_second_plural"></td>
+            </tr>
+            <tr>
+                <th>Третье</th>
+                <td id="perfect_verb_third_singular"></td>
+                <td id="perfect_verb_third_plural"></td>
+            </tr>
+            </tbody>
+        </table>
+
     </fieldset>
 </form>
 </body>
