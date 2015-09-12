@@ -63,4 +63,18 @@ $(document).ready(function () {
             }
         }
     });
+
+    // Проверка флексии глаголов совершенного вида
+    $('#perfect_verb_check').on('click', function () {
+        var infinitive = $('#perfect_verb_infinitive').val();
+        var verb = new PerfectVerb(infinitive);
+        if (verb) {
+            var inflection = verb.inflect();
+            for (var type in inflection) {
+                if (inflection.hasOwnProperty(type)) {
+                    $('#perfect_verb_' + type).html(inflection[type]);
+                }
+            }
+        }
+    });
 });
